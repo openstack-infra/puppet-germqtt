@@ -1,0 +1,12 @@
+[Unit]
+Description=Germqtt Daemon
+
+[Service]
+Type=forking
+PIDFile=<%= @pid_file %>
+ExecStart=/usr/local/bin/germqtt.py -c /etc/germqtt/germqtt.conf -p <%= @pid_file %>
+User=germqtt
+Group=germqtt
+
+[Install]
+WantedBy=multi-user.target
