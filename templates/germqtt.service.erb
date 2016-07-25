@@ -2,9 +2,8 @@
 Description=Germqtt Daemon
 
 [Service]
-Type=forking
-PIDFile=<%= @pid_file %>
-ExecStart=/usr/local/bin/germqtt.py /etc/germqtt/germqtt.conf
+Type=simple
+ExecStart=/usr/local/bin/germqtt /etc/germqtt.conf --foreground
 User=germqtt
 Group=germqtt
 

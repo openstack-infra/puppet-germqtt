@@ -16,13 +16,12 @@
 #   
 
 class germqtt::server (
- gerrit_username,
- gerrit_hostname = 'review.openstack.org',
- gerrit_key,
- mqtt_hostname = 'firehose01.openstack.org',
- topic = 'gerrit',
- pid_file = '/var/run/germqtt.pid',
-
+  $gerrit_username,
+  $gerrit_hostname = 'review.openstack.org',
+  $gerrit_key,
+  $mqtt_hostname = 'firehose01.openstack.org',
+  $topic = 'gerrit',
+  $pid_file = '/var/run/germqtt.pid',
 ) {
   file { '/etc/germqtt.conf':
     ensure  => present,
@@ -40,15 +39,15 @@ class germqtt::server (
     ensure => present,
     system => true,
   }
-  service { "germqtt":
+  service { 'germqtt':
     enable     => true,
     hasrestart => true,
     subscribe  => [
-      File['/etc/germqtt/germqtt.conf'],
+      File['/etc/germqtt.conf'],
       Package['germqtt'],
     ],
     require    => [
-      File['/etc/systemd/system/germqtt.service']
+      File['/etc/systemd/system/germqtt.service'],
       User['germqtt'],
     ],
   }

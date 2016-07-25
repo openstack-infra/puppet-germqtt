@@ -8,6 +8,8 @@
 #   Explanation of what this parameter affects and what it defaults to.
 #
 class germqtt {
+  include ::pip
+
   package {'germqtt':
     ensure   => latest,
     provider => 'pip',
