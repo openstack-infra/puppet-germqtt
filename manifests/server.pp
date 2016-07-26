@@ -40,11 +40,12 @@ class germqtt::server (
   }
 
   user { 'germqtt':
-    ensure  => present,
-    home    => '/home/germqtt',
-    shell   => '/bin/bash',
-    gid     => 'germqtt',
-    require => Group['germqtt'],
+    ensure     => present,
+    home       => '/home/germqtt',
+    shell      => '/bin/bash',
+    gid        => 'germqtt',
+    managehome => true,
+    require    => Group['germqtt'],
   }
 
   service { 'germqtt':
