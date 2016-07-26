@@ -35,10 +35,18 @@ class germqtt::server (
     group   => 'root',
     content => template('germqtt/germqtt.service.erb')
   }
-  user { 'germqtt':
+  group {'germqtt':
     ensure => present,
-    system => true,
   }
+
+  user { 'germqtt':
+    ensure  => present,
+    home    => '/home/germqtt',
+    shell   => '/bin/bash',
+    gid     => 'germqtt',
+    require => Group['germqtt'],
+  }
+
   service { 'germqtt':
     enable     => true,
     hasrestart => true,
