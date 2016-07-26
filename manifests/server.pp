@@ -18,7 +18,9 @@
 class germqtt::server (
   $gerrit_username,
   $gerrit_hostname = 'review.openstack.org',
-  $gerrit_key,
+  $gerrit_public_key,
+  $gerrit_private_key,
+  $gerrit_ssh_host_key = undef,
   $mqtt_hostname = 'firehose01.openstack.org',
   $topic = 'gerrit',
   $pid_file = '/var/run/germqtt.pid',
@@ -46,6 +48,54 @@ class germqtt::server (
     gid        => 'germqtt',
     managehome => true,
     require    => Group['germqtt'],
+  }
+
+  file {'/home/germqtt':
+    ensure  => directory,
+    mode    => '0700',
+    owner   => 'germqtt',
+    group   => 'germqtt',
+    require => User['germqtt'],
+  }
+
+  file {'/home/germqtt/.ssh':
+    ensure  => directory,
+    mode    => '0700',
+    owner   => 'germqtt',
+    group   => 'germqtt',
+    require => File['/home/germqtt'],
+  }
+
+  file {'/home/germqtt/.ssh/id_rsa.pub':
+    ensure  => present,
+    owner   => 'germqtt',
+    group   => 'germqtt',
+    mode    => '0600'.
+    content => $gerrit_public_key,
+    replace => true,
+    require => File['/home/germqtt/.ssh/']
+  }
+
+  file {'/home/germqtt/.ssh/id_rsa':
+    ensure  => present,
+    owner   => 'germqtt',
+    group   => 'germqtt',
+    mode    => '0600'.
+    content => $gerrit_private_key,
+    replace => true,
+    require => File['/home/germqtt/.ssh/']
+  }
+
+  if $gerrit_ssh_host_key != undef {
+    file {'/home/germqtt/.ssh/known_hosts':
+      ensure  => present,
+      owner   => 'germqtt',
+      group   => 'germqtt',
+      mode    => '0600'.
+      content => $gerrit_ssh_host_key,
+      replace => true,
+      require => File['/home/germqtt/.ssh/']
+    }
   }
 
   service { 'germqtt':
