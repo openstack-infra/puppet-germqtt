@@ -24,6 +24,8 @@ class germqtt::server (
   $mqtt_hostname = 'firehose01.openstack.org',
   $topic = 'gerrit',
   $pid_file = '/var/run/germqtt.pid',
+  $mqtt_username = 'infra',
+  $mqtt_password,
 ) {
   file { '/etc/germqtt.conf':
     ensure  => present,
