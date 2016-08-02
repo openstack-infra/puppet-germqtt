@@ -11,7 +11,7 @@ class germqtt {
   include ::pip
 
   package {'germqtt':
-    ensure   => latest,
+    ensure   => '0.10',
     provider => 'pip',
     require  => Class['pip'],
   }
