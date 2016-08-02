@@ -1,0 +1,8 @@
+Code-Review+2: Matthew Treinish <mtreinish@kortar.org>
+Workflow+1: Matthew Treinish <mtreinish@kortar.org>
+Verified+2: Jenkins
+Submitted-by: Jenkins
+Submitted-at: Tue, 02 Aug 2016 18:40:08 +0000
+Reviewed-on: https://review.openstack.org/350099
+Project: openstack-infra/puppet-germqtt
+Branch: refs/heads/master
