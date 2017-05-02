@@ -17,15 +17,15 @@
 
 class germqtt::server (
   $gerrit_username,
-  $gerrit_hostname = 'review.openstack.org',
   $gerrit_public_key,
   $gerrit_private_key,
+  $mqtt_password,
+  $gerrit_hostname = 'review.openstack.org',
   $gerrit_ssh_host_key = undef,
   $mqtt_hostname = 'firehose01.openstack.org',
   $topic = 'gerrit',
   $pid_file = '/var/run/germqtt.pid',
   $mqtt_username = 'infra',
-  $mqtt_password,
 ) {
   file { '/etc/germqtt.conf':
     ensure  => present,
