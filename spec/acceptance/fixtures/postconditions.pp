@@ -1,3 +1,0 @@
-service { 'germqtt':
-  ensure => running,
-}
